@@ -1,12 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { AppStore } from '../app.store';
+import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  selector: 'store-component2',
   standalone: true,
-  selector: 'store-component-component2',
-  imports: [CommonModule],
   templateUrl: './component2.component.html',
-  styleUrl: './component2.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./component2.component.scss'],
+  imports: [CommonModule]
 })
-export class Component2Component {}
+export class Component2Component {
+  currentStatus$: Observable<number>;
+
+  constructor(private readonly appStore: AppStore) {
+    // Inicializamos currentStatus$ después de la inyección del appStore
+    this.currentStatus$ = this.appStore.currentStatus$;
+  }
+
+  setStatus() {
+    this.appStore.setStatus(2); // Cambiar el estado global a 2
+  }
+}
