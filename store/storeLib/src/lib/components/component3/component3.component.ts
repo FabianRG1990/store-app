@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AppStore } from '../app.store';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -11,14 +11,10 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule,]
 })
 export class Component3Component {
-  currentStatus$: Observable<number>;
+ currentStatus$: Observable<number> = inject(AppStore).currentStatus$;
 
-  constructor(private readonly appStore: AppStore) {
-    // Inicializamos currentStatus$ después de la inyección del appStore
-    this.currentStatus$ = this.appStore.currentStatus$;
-  }
-
+  private readonly appStore = inject(AppStore);
   setStatus() {
-    this.appStore.setStatus(3); // Cambiar el estado global a 3
+    this.appStore.setStatus(3);
   }
 }
