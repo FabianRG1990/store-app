@@ -1,10 +1,10 @@
 
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Component1Component, Component2Component, Component3Component } from '@store-ws/store-lib';
+import { StoreComponent1, StoreComponent2, StoreComponent3 } from '@store-ws/store-lib';
 
 @Component({
-  imports: [ RouterModule, Component1Component, Component2Component, Component3Component ],
+  imports: [ RouterModule, StoreComponent1, StoreComponent2, StoreComponent3],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
