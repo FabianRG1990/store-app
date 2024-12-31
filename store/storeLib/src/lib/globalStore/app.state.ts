@@ -5,5 +5,5 @@ export interface AppState {
 }
 
 export const appReducers = {
-  globalState: globalStateReducer,
+  globalState: globalStateReducer
 };
