@@ -16,8 +16,9 @@ import { Store } from '@ngrx/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoreComponent1 {
-  
+
   private store = inject<Store<AppState>>(Store);
+  
   globalState$: Observable<number> = this.store.select(
     (state) => state.globalState
   );
