@@ -25,8 +25,8 @@ export class StoreComponent1 {
 
     //*antes del selector de ngRx
   //   globalState$: Observable<number> = this.store.select(
-  //   (state) => state.globalState
-  // );
+  //   (state) => state.globalState);
+
 
   changeStateTo1() {
     this.store.dispatch(changeState({ newState: 1 }));
