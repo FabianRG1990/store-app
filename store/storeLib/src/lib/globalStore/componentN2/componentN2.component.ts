@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../app.state';
 import { changeState } from '../global-state.actions';
 import { Store } from '@ngrx/store';
+import { selectGlobalState } from '../global-state.selectors';
 
 @Component({
   selector: 'store-store2',
@@ -17,10 +17,9 @@ import { Store } from '@ngrx/store';
 })
 export class StoreComponent2 {
 
-  private store = inject<Store<AppState>>(Store);
-  globalState$: Observable<number> = this.store.select(
-    (state) => state.globalState
-  );
+  private store = inject(Store);
+
+  globalState$: Observable<number> = this.store.select(selectGlobalState);
 
   changeStateTo2() {
     this.store.dispatch(changeState({ newState: 2 }));
