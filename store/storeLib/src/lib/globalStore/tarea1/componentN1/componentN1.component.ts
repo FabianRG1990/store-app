@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { changeState } from '../global-state.actions';
 import { Store } from '@ngrx/store';
-import { selectGlobalState } from '../global-state.selectors';
+import { selectGlobalState } from '../../store/global-state.selectors';
+import { changeState } from '../../store/global-state.actions';
 
 @Component({
   selector: 'store-store1',
