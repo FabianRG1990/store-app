@@ -1,4 +1,4 @@
-import { globalStateReducer } from "./global-state.reducer";
+import { appReducer, globalStateReducer } from "./global-state.reducer";
 
 export interface AppState {
   globalState: number;
@@ -8,5 +8,6 @@ export interface AppState {
 }
 
 export const appReducers = {
-  globalState: globalStateReducer
+  globalState: globalStateReducer,
+  app: appReducer
 };

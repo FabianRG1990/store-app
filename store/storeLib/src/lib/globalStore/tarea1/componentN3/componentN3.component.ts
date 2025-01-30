@@ -21,6 +21,7 @@ export class StoreComponent3 {
 
   globalState$: Observable<number> = this.store.select(selectGlobalState);
 
+
   changeStateTo3() {
     this.store.dispatch(changeState({ newState: 3 }));
   }
