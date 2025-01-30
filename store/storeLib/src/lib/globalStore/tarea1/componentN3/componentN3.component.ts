@@ -3,25 +3,26 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
-import { changeState } from '../global-state.actions';
+import { changeState } from '../../store/global-state.actions';
 import { Store } from '@ngrx/store';
-import { selectGlobalState } from '../global-state.selectors';
+import { selectGlobalState } from '../../store/global-state.selectors';
 
 @Component({
-  selector: 'store-store2',
+  selector: 'store-store3',
   standalone: true,
-  templateUrl: './componentN2.component.html',
-  styleUrl: './componentN2.component.scss',
+  templateUrl: './componentN3.component.html',
+  styleUrl: './componentN3.component.scss',
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StoreComponent2 {
+export class StoreComponent3 {
 
   private store = inject(Store);
 
   globalState$: Observable<number> = this.store.select(selectGlobalState);
 
-  changeStateTo2() {
-    this.store.dispatch(changeState({ newState: 2 }));
+
+  changeStateTo3() {
+    this.store.dispatch(changeState({ newState: 3 }));
   }
 }
