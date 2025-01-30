@@ -15,3 +15,13 @@ export const selectKey1 = createSelector(
   selectAppState, // Primero seleccionamos "app"
   (appState) => appState.key1 // Luego extraemos key1
 );
+
+export const selectKey2 = createSelector(
+  selectAppState,
+  (appState) => appState.key2
+);
+
+export const selectKey3 = createSelector(
+  selectAppState,
+  (appState) => appState.key3
+);
