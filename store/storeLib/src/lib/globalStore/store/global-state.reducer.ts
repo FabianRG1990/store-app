@@ -1,25 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
-import { changeState, updateAllKeys, updateKey1, updateKey2, updateKey3 } from './global-state.actions';
+import {
+  updateAllKeys,
+  updateKey1,
+  updateKey2,
+  updateKey3,
+} from './global-state.actions';
 import { AppState } from './app.state';
-
-export const initialGlobalState = 0;
 
 export const initialState: AppState = {
   key1: 'Initial Key 0',
   key2: 0,
   key3: false,
-  globalState: 0
+  globalState: 0,
 };
-
-
-
-export const globalStateReducer = createReducer(
-  initialGlobalState,
-  on(changeState, (state, { newState }) => newState) // Actualizamos el estado con el valor proporcionado
-);
-
-
-
 
 export const appReducer = createReducer(
   initialState,
@@ -50,4 +43,3 @@ export const appReducer = createReducer(
     key3,
   }))
 );
-
