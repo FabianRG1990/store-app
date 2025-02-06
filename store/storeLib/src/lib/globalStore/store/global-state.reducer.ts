@@ -1,25 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
-import { changeState, updateAllKeys, updateKey1, updateKey2, updateKey3 } from './global-state.actions';
+import {
+  loadCharacters,
+  loadCharactersFailure,
+  loadCharactersSuccess,
+  updateAllKeys,
+  updateKey1,
+  updateKey2,
+  updateKey3,
+} from './global-state.actions';
 import { AppState } from './app.state';
-
-export const initialGlobalState = 0;
 
 export const initialState: AppState = {
   key1: 'Initial Key 0',
   key2: 0,
   key3: false,
-  globalState: 0
+  globalState: 0,
+  characters: [],
+  loading: false,
+  error: null
 };
-
-
-
-export const globalStateReducer = createReducer(
-  initialGlobalState,
-  on(changeState, (state, { newState }) => newState) // Actualizamos el estado con el valor proporcionado
-);
-
-
-
 
 export const appReducer = createReducer(
   initialState,
@@ -48,6 +47,23 @@ export const appReducer = createReducer(
     key1,
     key2,
     key3,
-  }))
+  })),
+
+    // Nuevos casos para el API
+    on(loadCharacters, (state) => ({
+      ...state,
+      loading: true,
+      error: null
+    })),
+    on(loadCharactersSuccess, (state, { characters }) => ({
+      ...state,
+      characters,
+      loading: false
+    })),
+    on(loadCharactersFailure, (state, { error }) => ({
+      ...state,
+      error,
+      loading: false
+    })),
 );
 

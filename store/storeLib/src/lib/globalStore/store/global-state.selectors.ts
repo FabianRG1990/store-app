@@ -25,3 +25,19 @@ export const selectKey3 = createSelector(
   selectAppState,
   (appState) => appState.key3
 );
+
+
+export const selectCharacters = createSelector(
+  selectAppState,
+  (state) => state.characters
+);
+
+export const selectLoading = createSelector(
+  selectAppState,
+  (state) => state.loading
+);
+
+export const selectError = createSelector(
+  selectAppState,
+  (state) => state.error
+);
