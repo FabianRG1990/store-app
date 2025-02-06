@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@store-ws/store-lib": ["store/storeLib/src/index.ts"]
-
     }
   },
   "exclude": ["node_modules", "tmp"]

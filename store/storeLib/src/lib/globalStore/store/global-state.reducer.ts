@@ -1,5 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  loadCharacters,
+  loadCharactersFailure,
+  loadCharactersSuccess,
   updateAllKeys,
   updateKey1,
   updateKey2,
@@ -12,6 +15,9 @@ export const initialState: AppState = {
   key2: 0,
   key3: false,
   globalState: 0,
+  characters: [],
+  loading: false,
+  error: null
 };
 
 export const appReducer = createReducer(
@@ -41,5 +47,23 @@ export const appReducer = createReducer(
     key1,
     key2,
     key3,
-  }))
+  })),
+
+    // Nuevos casos para el API
+    on(loadCharacters, (state) => ({
+      ...state,
+      loading: true,
+      error: null
+    })),
+    on(loadCharactersSuccess, (state, { characters }) => ({
+      ...state,
+      characters,
+      loading: false
+    })),
+    on(loadCharactersFailure, (state, { error }) => ({
+      ...state,
+      error,
+      loading: false
+    })),
 );
+

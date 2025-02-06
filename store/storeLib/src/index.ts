@@ -16,4 +16,6 @@ export * from './lib/globalStore/tarea2/key3/key3.component';
 
 export * from './lib/globalStore/tarea2/keyAll/keyAll.component';
 
-export * from './lib/globalStore/store/global-state.effects'
+export * from './lib/globalStore/store/global-state.effects';
+
+export * from './lib/globalStore/tarea3api/tarea3api.component';

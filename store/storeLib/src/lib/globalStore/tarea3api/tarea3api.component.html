@@ -1,0 +1,12 @@
+<h1>Swapi</h1>
+
+<button (click)="load()">Cargar Personajes</button>
+
+<div *ngIf="loading$ | async">Cargando...</div>
+<div *ngIf="error$ | async as error">Error: {{ error }}</div>
+
+<ul>
+  <li *ngFor="let character of characters$ | async">
+    {{ character.name }} - {{ character.gender }}
+  </li>
+</ul>
