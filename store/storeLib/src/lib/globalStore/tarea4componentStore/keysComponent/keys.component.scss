@@ -1,0 +1,20 @@
+:host {
+  display: block;
+}
+
+/* keys.component.css */
+.key-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.key-values {
+  border: 1px solid #ccc;
+  padding: 1rem;
+}

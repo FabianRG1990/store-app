@@ -1,0 +1,12 @@
+<div class="key-controls">
+  <button (click)="updateKey1()">Actualizar Key1</button>
+  <button (click)="updateKey2()">Actualizar Key2</button>
+  <button (click)="updateKey3()">Actualizar Key3</button>
+  <button (click)="updateAll()">Actualizar Todas</button>
+</div>
+
+<div class="key-values">
+  <p>Key1: {{ key1$ | async }}</p>
+  <p>Key2: {{ key2$ | async }}</p>
+  <p>Key3: {{ key3$ | async | json }}</p>
+</div>
