@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { KeysStore } from './keys.store';
 
 @Component({
@@ -7,7 +7,7 @@ import { KeysStore } from './keys.store';
   standalone: true,
   templateUrl: './keys.component.html',
   styleUrl: './keys.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [KeysStore], // Proveemos el store a nivel componente
 })
@@ -19,6 +19,9 @@ export class KeysComponent {
   key1$ = this.keysStore.key1$;
   key2$ = this.keysStore.key2$;
   key3$ = this.keysStore.key3$;
+  characters$ = this.keysStore.characters$;
+  loading$ = this.keysStore.loading$;
+  error$ = this.keysStore.error$;
 
   // Métodos para actualizar
   updateKey1() {
@@ -39,5 +42,15 @@ export class KeysComponent {
       key2: 999,
       key3: true
     });
+  }
+
+  // funcion para limpiar state
+  resetState() {
+    this.keysStore.resetState();
+  }
+
+  // Función para cargar personajes de swapi
+  searchCharacters(name: string) {
+    this.keysStore.searchCharacters(name);
   }
 }
