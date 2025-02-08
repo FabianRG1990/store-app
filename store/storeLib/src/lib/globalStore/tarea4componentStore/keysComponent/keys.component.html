@@ -3,6 +3,12 @@
   <button (click)="updateKey2()">Actualizar Key2</button>
   <button (click)="updateKey3()">Actualizar Key3</button>
   <button (click)="updateAll()">Actualizar Todas</button>
+  <button (click)="resetState()">Limpiar Estado</button>
+</div>
+
+<div class="search">
+  <input #searchInput placeholder="Buscar personaje..." />
+  <button (click)="searchCharacters(searchInput.value)">Buscar</button>
 </div>
 
 <div class="key-values">
@@ -10,3 +16,15 @@
   <p>Key2: {{ key2$ | async }}</p>
   <p>Key3: {{ key3$ | async | json }}</p>
 </div>
+
+<div class="characters" *ngIf="characters$ | async as characters">
+  <h3>Personajes:</h3>
+  <ul>
+    <li *ngFor="let character of characters">
+      {{ character.name }} 
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="loading$ | async">Cargando...</div>
+<div *ngIf="error$ | async as error" class="error">Error: {{ error }}</div>
