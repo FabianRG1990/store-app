@@ -1,20 +1,24 @@
-// keys.store.ts
 import { ComponentStore } from '@ngrx/component-store';
+import { tapResponse } from '@ngrx/operators';
 import { Injectable } from '@angular/core';
-import { Observable, tap, switchMap, map, catchError, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, tap, switchMap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 export interface Character {
   name: string;
+}
+
+interface SwapiResponse {
+  results: Character[];
 }
 
 interface KeyState {
   key1: string;
   key2: number;
   key3: boolean;
-  characters: Character[]; // Nuevo campo para almacenar personajes
-  loading: boolean; // Nuevo campo para indicar carga
-  error: null; // Nuevo campo para manejar errores
+  characters: Character[];
+  loading: boolean;
+  error: string | null;
 }
 
 @Injectable()
@@ -85,27 +89,30 @@ export class KeysStore extends ComponentStore<KeyState> {
     error: null,
   }));
 
-    // Método para buscar en SWAPI por nombre
-    readonly searchCharacters = this.effect((name$: Observable<string>) => {
-      return name$.pipe(
-        tap(() => this.patchState({ loading: true, error: null })), // Inicia la carga
-        switchMap((name) =>
-          this.http.get(`https://swapi.dev/api/people/?search=${name}`).pipe(
-            map((response: any) => {
+  // Método para buscar en SWAPI por nombre
+  readonly searchCharacters = this.effect((name$: Observable<string>) => {
+    return name$.pipe(
+      tap(() => this.patchState({ loading: true, error: null })), // Inicia la carga
+      switchMap((name) =>
+        this.http.get<SwapiResponse>(`https://swapi.dev/api/people/?search=${name}`).pipe(
+          tapResponse(
+            // Éxito: Actualiza el estado con los personajes
+            (response: any) => {
               this.patchState({
                 characters: response.results,
-                loading: false
+                loading: false,
               });
-            }),
-            catchError((error) => {
+            },
+            // Error: Actualiza el estado con el mensaje de error
+            (error: HttpErrorResponse) => {
               this.patchState({
                 error: error.message,
-                loading: false
+                loading: false,
               });
-              return of(null); // Maneja el error sin romper el flujo
-            })
+            }
           )
         )
-      );
-    });
+      )
+    );
+  });
 }
