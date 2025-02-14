@@ -53,4 +53,10 @@ export class KeysComponent {
   searchCharacters(name: string) {
     this.keysStore.searchCharacters(name);
   }
+
+    // Método para disparar el efecto sin parametros
+    setDefaultValues() {
+      this.keysStore.setDefaultValues();
+    }
+
 }
