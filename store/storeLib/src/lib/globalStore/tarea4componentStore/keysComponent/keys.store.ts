@@ -89,6 +89,25 @@ export class KeysStore extends ComponentStore<KeyState> {
     error: null,
   }));
 
+  // Efecto para actualizar todas las keys con valores definidos internamente
+  readonly setDefaultValues = this.effect<void>(
+    (trigger$) => trigger$.pipe(
+      tap(() => {
+        // Valores definidos internamente
+        const newKey1 = 'Valor por defecto dado por el efecto';
+        const newKey2 = 100;
+        const newKey3 = true;
+
+        // Actualización del estado usando patchState
+        this.patchState({
+          key1: newKey1,
+          key2: newKey2,
+          key3: newKey3,
+        });
+      })
+    )
+  );
+
   // Método para buscar en SWAPI por nombre
   readonly searchCharacters = this.effect((name$: Observable<string>) => {
     return name$.pipe(
@@ -96,7 +115,7 @@ export class KeysStore extends ComponentStore<KeyState> {
       switchMap((name) =>
         this.http.get<SwapiResponse>(`https://swapi.dev/api/people/?search=${name}`).pipe(
           tapResponse(
-            // Éxito: Actualiza el estado con los personajes
+            // Actualiza el estado con los personajes
             (response: any) => {
               this.patchState({
                 characters: response.results,
