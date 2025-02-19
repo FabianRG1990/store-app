@@ -1,31 +1,38 @@
-<div class="key-controls">
-  <button (click)="updateKey1()">Actualizar Key1</button>
-  <button (click)="updateKey2()">Actualizar Key2</button>
-  <button (click)="updateKey3()">Actualizar Key3</button>
-  <button (click)="updateAll()">Actualizar Todas</button>
-  <button (click)="resetState()">Limpiar Estado</button>
-  <button (click)="setDefaultValues()">Establecer valores del efecto</button>
-</div>
+<div class="key-controls" *ngrxLet="{
+  key1: keysStore.key1$ | ngrxPush,
+  key2: keysStore.key2$ | ngrxPush,
+  key3: keysStore.key3$ | ngrxPush,
+  characters: keysStore.characters$| ngrxPush,
+  loading: keysStore.loading$ | ngrxPush,
+  error: keysStore.error$ | ngrxPush
+} as vm">
+  <button (click)="keysStore.updateKey1()">Actualizar Key1</button>
+  <button (click)="keysStore.updateKey2()">Actualizar Key2</button>
+  <button (click)="keysStore.updateKey3()">Actualizar Key3</button>
+  <button (click)="keysStore.updateAll()">Actualizar Todas</button>
+  <button (click)="keysStore.resetState()">Limpiar Estado</button>
+  <button (click)="keysStore.setDefaultValues()">Establecer valores del efecto</button>
 
-<div class="search">
-  <input #searchInput placeholder="Buscar personaje..." />
-  <button (click)="searchCharacters(searchInput.value)">Buscar</button>
-</div>
+  <div class="search">
+    <input #searchInput placeholder="Buscar personaje..." />
+    <button (click)="keysStore.searchCharacters(searchInput.value)">Buscar</button>
+  </div>
 
-<div class="key-values">
-  <p>Key1: {{ key1$ | async }}</p>
-  <p>Key2: {{ key2$ | async }}</p>
-  <p>Key3: {{ key3$ | async | json }}</p>
-</div>
+  <div class="key-values">
+    <p>Key1: {{ vm.key1 }}</p>
+    <p>Key2: {{ vm.key2 }}</p>
+    <p>Key3: {{ vm.key3 }}</p>
+  </div>
 
-<div class="characters" *ngIf="characters$ | async as characters">
-  <h3>Personajes:</h3>
-  <ul>
-    <li *ngFor="let character of characters">
-      {{ character.name }}
-    </li>
-  </ul>
-</div>
+  <div class="characters" *ngIf="vm.characters">
+    <h3>Personajes:</h3>
+    <ul>
+      <li *ngFor="let character of vm.characters">
+        {{ character.name }}
+      </li>
+    </ul>
+  </div>
 
-<div *ngIf="loading$ | async">Cargando...</div>
-<div *ngIf="error$ | async as error" class="error">Error: {{ error }}</div>
+  <div *ngIf="vm.loading">Cargando...</div>
+  <div *ngIf="vm.error" class="error">Error: {{ vm.error }}</div>
+</div>
