@@ -43,45 +43,33 @@ export class KeysStore extends ComponentStore<KeyState> {
   readonly error$ = this.select((state) => state.error);
 
   // Updaters
-  readonly updateKey1 = this.updater((state, key1: string) => ({
+  readonly updateKey1 = this.updater((state) => ({
     ...state,
-    key1,
+    key1: 'key1 en 0',
   }));
 
-  readonly updateKey2 = this.updater((state, key2: number) => ({
+  readonly updateKey2 = this.updater((state) => ({
     ...state,
-    key2,
+    key2: 2525,
   }));
 
-  readonly updateKey3 = this.updater((state, key3: boolean) => ({
+  readonly updateKey3 = this.updater((state) => ({
     ...state,
-    key3,
+    key3: true,
   }));
 
-  readonly updateAll = this.updater(
-    (
-      state,
-      {
-        key1,
-        key2,
-        key3,
-      }: {
-        key1: string;
-        key2: number;
-        key3: boolean;
-      }
-    ) => ({
+  readonly updateAll = this.updater((state) => ({
       ...state,
-      key1,
-      key2,
-      key3,
+      key1: 'Actualizado',
+      key2: 999,
+      key3: false,
     })
   );
 
   // Método para limpiar el estado
   readonly resetState = this.updater((state) => ({
     ...state,
-    key1: 'Valor inicial',
+    key1: 'Valor inicial 1',
     key2: 0,
     key3: false,
     characters: [],
@@ -90,23 +78,14 @@ export class KeysStore extends ComponentStore<KeyState> {
   }));
 
   // Efecto para actualizar todas las keys con valores definidos internamente
-  readonly setDefaultValues = this.effect<void>(
-    (trigger$) => trigger$.pipe(
-      tap(() => {
-        // Valores definidos internamente
-        const newKey1 = 'Valor por defecto dado por el efecto';
-        const newKey2 = 100;
-        const newKey3 = true;
-
-        // Actualización del estado usando patchState
-        this.patchState({
-          key1: newKey1,
-          key2: newKey2,
-          key3: newKey3,
-        });
-      })
-    )
-  );
+  readonly setDefaultValues = this.updater(() => ({
+    key1: 'Valor por defecto dado por el efecto',
+    key2: 100,
+    key3: true,
+    characters: [],
+    loading: false,
+    error: null,
+  }));
 
   // Método para buscar en SWAPI por nombre
   readonly searchCharacters = this.effect((name$: Observable<string>) => {
